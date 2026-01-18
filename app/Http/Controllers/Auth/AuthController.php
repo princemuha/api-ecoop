@@ -38,6 +38,8 @@ class AuthController
             $data['user_id'] = $this->IdService->getID5('system_user', 'user_id');
             $data['password'] = Hash::make($data['password']);
             $data['created_by'] = $data['fullname'];
+            $data['otp'] = rand(100000, 999999);
+            $data['otp_expires_at'] = now()->addMinutes(10);
 
             return response()->json($this->authService->register($request, $data), 201);
         } catch (\Throwable $th) {

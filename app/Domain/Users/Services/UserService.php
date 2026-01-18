@@ -38,7 +38,9 @@ class UserService
     public function delete($id)
     {
         try {
-            return $this->mapRoles->deleteByUser($id) ? $this->user->delete($id) : false;
+            $this->mapRoles->deleteByUser($id);
+            $this->user->delete($id);
+            return ['message' => 'success'];
         } catch (\Throwable $th) {
             $this->logging->errorLog([
                 'message' => $th->getMessage(),

@@ -43,9 +43,6 @@ class AuthService
     public function register($request, $data)
     {
         // try {
-        $data['otp'] = rand(100000, 999999);
-        $data['otp_expires_at'] = now()->addMinutes(10);
-        $data['password'] = Hash::make($request->password);
         $savedUser = $this->auth->store($data);
         if (!$savedUser) {
             return ['message' => 'Failed to save new user.'];
