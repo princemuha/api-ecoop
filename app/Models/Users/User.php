@@ -1,26 +1,38 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Users;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
+    protected $table = 'system_user';
+    protected $primaryKey = 'user_id';
     protected $fillable = [
-        'name',
-        'email',
+        'user_id',
+        'username',
+        'fullname',
         'password',
+        'email',
+        'email_verified_at',
+        'remember_token',
+        'status_active',
+        'created_by',
+        'updated_by',
+        'otp',
+        'otp_expires_at',
     ];
 
     /**
@@ -31,6 +43,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
+        'created_by',
+        'updated_by',
+        'otp',
+        'otp_expires_at',
     ];
 
     /**
@@ -42,7 +59,18 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'otp_expires_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status_active == 'active';
+    }
+
+    public function isVerified(): bool
+    {
+        return !is_null($this->email_verified_at);
     }
 }
