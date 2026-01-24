@@ -16,13 +16,13 @@ class AuthController
     public function login(Request $request)
     {
         $request->validate(['username' => 'required|string', 'password' => 'required']);
-        return response()->json($this->authService->login($request));
+        return $this->authService->login($request);
     }
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()?->delete();
-        return response()->json(['message' => 'success']);
+        return ['message' => 'success'];
     }
 
     public function register(Request $request)
@@ -41,7 +41,37 @@ class AuthController
             $data['otp'] = rand(100000, 999999);
             $data['otp_expires_at'] = now()->addMinutes(10);
 
-            return response()->json($this->authService->register($request, $data), 201);
+            return $this->authService->register($request, $data);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function verify(Request $request)
+    {
+        try {
+            $request->validate([
+                'user_id' => 'required|integer',
+                'otp' => 'required|integer',
+            ]);
+            return $this->authService->verify($request);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function renewOTP(Request $request)
+    {
+        try {
+            $request->validate([
+                'user_id' => 'required|integer',
+                'email' => 'required|email',
+            ]);
+            return $this->authService->renewOTP($request);
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => $th->getMessage()
