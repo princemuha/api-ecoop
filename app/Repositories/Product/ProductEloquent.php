@@ -59,6 +59,6 @@ class ProductEloquent implements ProductInterface
             ->limit(4)
             ->get()->toArray();
         $return = array_merge($mostBoughtByMe, $mostBoughtByOther);
-        return $return;
+        return count($return) > 0 ? $return : Product::where('status_active', 'active')->orderBy('stock', 'desc')->limit(8)->get()->toArray();
     }
 }

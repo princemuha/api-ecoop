@@ -25,6 +25,7 @@ class Product extends Model
         'selling_price',
         'status_active',
         'stock',
+        'default_image',
         'note',
         'created_by',
         'updated_by',
