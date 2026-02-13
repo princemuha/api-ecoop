@@ -4,7 +4,7 @@ namespace App\Infrastructure\Marketplace\Banner\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BannerModel extends Model
+class Banner extends Model
 {
     protected $table = 'system_banner';
     protected $primaryKey = 'banner_id';

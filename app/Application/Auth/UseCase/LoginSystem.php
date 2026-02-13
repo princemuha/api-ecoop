@@ -6,6 +6,7 @@ use App\Application\Auth\DTO\LoginDTO;
 use App\Infrastructure\Auth\Contracts\AuthInterface;
 use App\Shared\Exeptions\ApiException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class LoginSystem
 {
@@ -28,6 +29,8 @@ class LoginSystem
             }
             // Hapus semua token lama sebelum membuat token baru
             $this->authInterface->deleteTokens($user);
+
+            Log::channel('discord-system')->info('User logged in', ['user' => $user]);
             
             $return['user'] = $user;
             $return['roles'] = (object) $this->authInterface->roles($user->user_id);

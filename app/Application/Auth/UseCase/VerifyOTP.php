@@ -4,6 +4,7 @@ namespace App\Application\Auth\UseCase;
 
 use App\Application\Auth\DTO\VerifyOTPDTO;
 use App\Infrastructure\Auth\Contracts\AuthInterface;
+use Illuminate\Support\Facades\Log;
 
 class VerifyOTP
 {
@@ -19,6 +20,7 @@ class VerifyOTP
 
     public function execute(VerifyOTPDTO $verifyOTPDTO)
     {
+        Log::channel('discord-system')->info('Verify OTP success', ['user' => auth()->user()]);
         return $this->authInterface->verifyOTP($verifyOTPDTO);
     }
 }

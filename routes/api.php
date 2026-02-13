@@ -27,6 +27,9 @@ Route::post('renew-otp', [\App\Interface\Controllers\Auth\AuthController::class,
 Route::middleware(['auth:sanctum', 'throttle:10,1'])->prefix('banner')->group(function () {
     Route::get('/', [\App\Interface\Controllers\Marketplace\Banner\BannerController::class, 'index']);
 });
+Route::middleware(['auth:sanctum', 'throttle:10,1'])->prefix('product-discount')->group(function () {
+    Route::get('/', [\App\Interface\Controllers\Marketplace\Catalog\ProductController::class, 'index']);
+});
 // End of Marketplace ------------------------------------------------------
 
 // Route::middleware(['auth:sanctum', 'throttle:60,1'])->prefix('banner')->group(function () {

@@ -3,6 +3,7 @@
 namespace App\Application\Marketplace\Banner\UseCase;
 
 use App\Infrastructure\Marketplace\Banner\Contracts\BannerInterface;
+use Illuminate\Support\Facades\Log;
 
 class GetBanner
 {
@@ -16,6 +17,8 @@ class GetBanner
 
     public function execute()
     {
-        return $this->banner->getAll();
+        $banners = $this->banner->getAll();
+        Log::channel('discord-system')->info('Get banner success', ['user' => auth()->user(), 'banner' => $banners]);
+        return $banners;
     }
 }

@@ -3,6 +3,7 @@
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
+use App\Shared\Handlers\DiscordWebhookHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
 
 return [
@@ -80,6 +81,36 @@ return [
             'emoji' => env('LOG_SLACK_EMOJI', ':boom:'),
             'level' => env('LOG_LEVEL', 'critical'),
             'replace_placeholders' => true,
+        ],
+
+        'discord' => [
+            'driver' => 'monolog',
+            'handler' => DiscordWebhookHandler::class,
+            'with' => [
+                'webhookUrl' => env('DISCORD_WEBHOOK_URL'),
+                'username' => 'KBSA API',
+            ],
+            'level' => 'error',
+        ],
+
+        'discord-system' => [
+            'driver' => 'monolog',
+            'handler' => DiscordWebhookHandler::class,
+            'with' => [
+                'webhookUrl' => env('DISCORD_WEBHOOK_URL_SYSTEM'),
+                'username' => 'KBSA API',
+            ],
+            'level' => 'info',
+        ],
+
+        'discord-business' => [
+            'driver' => 'monolog',
+            'handler' => DiscordWebhookHandler::class,
+            'with' => [
+                'webhookUrl' => env('DISCORD_WEBHOOK_URL_BUSINESS'),
+                'username' => 'KBSA API',
+            ],
+            'level' => 'info',
         ],
 
         'papertrail' => [
