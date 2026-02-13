@@ -31,7 +31,7 @@ class LoginSystem
             
             $return['user'] = $user;
             $return['roles'] = (object) $this->authInterface->roles($user->user_id);
-            $return['token'] = $user->createToken('api_token')->plainTextToken;
+            $return['token'] = $user->createToken('api')->plainTextToken;
             return (object) $return;
         }else{
             throw new ApiException('User not found', 404);

@@ -23,28 +23,17 @@ Route::post('register', [\App\Interface\Controllers\Auth\AuthController::class, 
 Route::post('verify-otp', [\App\Interface\Controllers\Auth\AuthController::class, 'verifyOTP']);
 Route::post('renew-otp', [\App\Interface\Controllers\Auth\AuthController::class, 'renewOTP']);
 
-// Administration - user management
-// Route::middleware(['auth:sanctum', 'throttle:60,1'])->prefix('users')->group(function () {
-//     Route::get('/', [\App\Interface\Controllers\Users\UserController::class, 'index']);
-//     Route::get('/{id}', [\App\Interface\Controllers\Users\UserController::class, 'show']);
-//     Route::post('/', [\App\Interface\Controllers\Users\UserController::class, 'store']);
-//     Route::patch('/{id}', [\App\Interface\Controllers\Users\UserController::class, 'update']);
-//     Route::delete('/{id}', [\App\Interface\Controllers\Users\UserController::class, 'delete']);
-// });
+// Marketplace ------------------------------------------------------------
+Route::middleware(['auth:sanctum', 'throttle:10,1'])->prefix('banner')->group(function () {
+    Route::get('/', [\App\Interface\Controllers\Marketplace\Banner\BannerController::class, 'index']);
+});
+// End of Marketplace ------------------------------------------------------
 
-// Master - products
-// Route::middleware(['auth:sanctum', 'throttle:60,1'])->prefix('products')->group(function () {
-//     Route::get('/', [\App\Interface\Controllers\Product\ProductController::class, 'index']);
-//     Route::get('/{id}', [\App\Interface\Controllers\Product\ProductController::class, 'show']);
-//     Route::post('/', [\App\Interface\Controllers\Product\ProductController::class, 'store']);
-//     Route::patch('/{id}', [\App\Interface\Controllers\Product\ProductController::class, 'update']);
-//     Route::delete('/{id}', [\App\Interface\Controllers\Product\ProductController::class, 'delete']);
+// Route::middleware(['auth:sanctum', 'throttle:60,1'])->prefix('banner')->group(function () {
+//     Route::get('/', [\App\Interface\Controllers\Marketplace\Banner\BannerController::class, 'index']);
+//     Route::get('/{id}', [\App\Interface\Controllers\Marketplace\Banner\BannerController::class, 'show']);
+//     Route::post('/', [\App\Interface\Controllers\Marketplace\Banner\BannerController::class, 'store']);
+//     Route::patch('/{id}', [\App\Interface\Controllers\Marketplace\Banner\BannerController::class, 'update']);
+//     Route::delete('/{id}', [\App\Interface\Controllers\Marketplace\Banner\BannerController::class, 'delete']);
 // });
-// Route::get('/recommended', [\App\Interface\Controllers\Product\ProductController::class, 'recommended'])->middleware('auth:sanctum', 'throttle:60,1');
-
-// Transaction - orders (example protected)
-// Route::middleware('auth:sanctum')->prefix('orders')->group(function () {
-//     Route::post('/', [\App\Domain\Transaction\Controllers\OrderController::class, 'store']);
-//     Route::get('{id}', [\App\Domain\Transaction\Controllers\OrderController::class, 'show']);
-// });
-// });
+// Route::get('/recommended', [\App\Interface\Controllers\Marketplace\Banner\BannerController::class, 'recommended'])->middleware('auth:sanctum', 'throttle:60,1');
