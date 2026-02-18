@@ -13,6 +13,6 @@ class BannerEloquent implements BannerInterface
 
     public function getAll()
     {
-        return Banner::where('banner_status', 'active')->get()->toArray();
+        return Banner::select('banner_title', 'banner_desc', 'banner_url', 'banner_image', 'banner_flow')->where('banner_status', 'active')->get();
     }
 }

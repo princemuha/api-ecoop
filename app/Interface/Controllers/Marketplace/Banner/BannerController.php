@@ -15,6 +15,6 @@ class BannerController extends Controller
     {}
     public function index()
     {
-        return $this->jsonHandler->handle('success', (object) $this->banner->execute());
+        return $this->jsonHandler->handle('success', $this->banner->execute());
     }
 }

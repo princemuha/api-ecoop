@@ -18,7 +18,7 @@ class GetBanner
     public function execute()
     {
         $banners = $this->banner->getAll();
-        Log::channel('discord-system')->info('Get banner success', ['user' => auth()->user(), 'banner' => $banners]);
-        return $banners;
+        Log::channel('discord-system')->info('Get banner success', ['user' => auth()->user()]);
+        return (object) ['banners' => (object) $banners];
     }
 }
